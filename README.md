@@ -4,18 +4,18 @@
 
 <br>
 
-<ig src= "./images/ss1.png">
+<img src= "./images/ss1.png">
 
 <br>
 
 <br>
 
-<ig src= "./images/ss2.png">
+<img src= "./images/ss2.png">
 
 <br>
 
 <br>
 
-<ig src= "./images/ss3.png">
+<img src= "./images/ss3.png">
 
 <br>
