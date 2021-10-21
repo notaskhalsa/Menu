@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Menu</title>
+</head>
+<body>
+    <section class="menu">
+        <div class="title-underline">
+            <h1 class="title">Our Menu</h1>
+        </div>
+
+        <div class="btn-container">
+            <!-- <button type="button" data-id="All" class="filter-btn btn-all active">All</button>
+            <button type="button" data-id="Breakfast" class="filter-btn btn-breakfast">Breakfast</button>
+            <button type="button" data-id="Lunch" class="filter-btn btn-lunch">Lunch</button>
+            <button type="button" data-id="Beverage" class="filter-btn btn-beverage">Beverage</button> -->
+        </div>
+
+        <div class="section-center">
+            <!-- <article class="menu-item">
+                <div class="menu-image">
+                    <img src="./images/img1.jpg" alt="pancake">
+                </div>
+                <div class="menu-info">
+                    <header>
+                        <h4>Buttermilk Pancake</h4>
+                        <h3 class="price">$15</h3>
+                    </header>
+                    <p class="item-text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed nisi praesentium ea repudiandae consequatur? Quisquam velit dicta dignissimos illum enim?
+                    </p>
+                </div>
+            </article> -->
+
+        </div>
+    </section>
+    
+    <script>
+        const menu = [
+            {
+                id:1,
+                title: "Buttermilk Pancake",
+                category: "Breakfast",
+                price: 15.99,
+                img: "./images/img1.jpg",
+                desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed nisi praesentium ea repudiandae consequatur? Quisquam velit dicta dignissimos illum enim?"
+            },
+            {
+                id:2,
+                title: "Dinner double",
+                category: "Lunch",
+                price: 13.99,
+                img: "./images/img2.jpg",
+                desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed nisi praesentium ea repudiandae consequatur? Quisquam velit dicta dignissimos illum enim?"
+            },
+            {
+                id:3,
+                title: "Milky Summer",
+                category: "Beverage",
+                price: 10.99,
+                img: "./images/img3.jpg",
+                desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed nisi praesentium ea repudiandae consequatur? Quisquam velit dicta dignissimos illum enim?"
+            },
+            {
+                id:4,
+                title: "Omlette",
+                category: "Breakfast",
+                price: 13.99,
+                img: "./images/img4.jpg",
+                desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed nisi praesentium ea repudiandae consequatur? Quisquam velit dicta dignissimos illum enim?"
+            },
+            {
+                id:5,
+                title: "American Special",
+                category: "Lunch",
+                price: 13.99,
+                img: "./images/img5.jpg",
+                desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed nisi praesentium ea repudiandae consequatur? Quisquam velit dicta dignissimos illum enim?"
+            },
+            {
+                id:6,
+                title: "Jumbo Milkshakes",
+                category: "Beverage",
+                price: 13.99,
+                img: "./images/img6.jpeg",
+                desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed nisi praesentium ea repudiandae consequatur? Quisquam velit dicta dignissimos illum enim?"
+            }
+        ];
+
+        const sectionCenter = document.querySelector(".section-center");
+        const btnContainer = document.querySelector(".btn-container");
+
+
+        window.addEventListener("DOMContentLoaded", function(){
+            displayMenuItems(menu);
+            displayMenuButtons();
+        });
+          
+            function displayMenuItems(menuItems){
+                let displayMenu = menuItems.map(function(item) {
+                return `<article class="menu-item">
+                    <div class="menu-image">
+                        <img src=${item.img} alt=${item.category}>
+                    </div>
+                    <div class="menu-info">
+                        <header>
+                            <h4>${item.title}</h4>
+                            <h3 class=${item.price}>$15</h3>
+                        </header>
+                        <p class="item-text">
+                            ${item.desc}
+                        </p>
+                    </div>
+                </article>`;
+                });
+                displayMenu = displayMenu.join("");
+                // console.log(displayMenu);
+                sectionCenter.innerHTML = displayMenu
+            };
+
+            function displayMenuButtons(){
+                const categories = menu.reduce( function(values,item){
+                if(!values.includes(item.category)){
+                    values.push(item.category);
+                }
+                return values;
+                },["All"]);
+                
+                const categoryBtns = categories.map(function (category){
+                    return `<button type="button" data-id="${category}" class="filter-btn btn-breakfast">${category}</button>`
+                }).join("");
+                btnContainer.innerHTML = categoryBtns;
+                
+                const filterBtns = document.querySelectorAll(".filter-btn");
+                
+                filterBtns.forEach(function(btn){
+                    btn.addEventListener("click",function(e){
+                        const category = e.currentTarget.dataset.id;
+                        const menuCategory = menu.filter(function(menuItem){
+                            if(menuItem.category === category){
+                                return menuItem; 
+                            }
+                        });
+                        console.log(menuCategory)
+                        if(category === "All"){
+                            displayMenuItems(menu);
+                        }
+                        else{
+                            displayMenuItems(menuCategory);
+                        }
+                    });
+                });
+            }
+
+            // const btnAll = document.getElementById("btn-all");
+            // const btnBreakfast = document.getElementById("btn-breakfast");
+            // const btnLunch = document.getElementById("btn-lunch");
+            // const btnBeverage = document.getElementById("btn-beverage");
+
+
+            
+            // console.log(btns);
+
+            
+
+            // btns.addEventListener('click', function(){
+            //     const filturBtns = menu.filter(function(item){
+            //         if(menu.category === "Breakfast" ){
+            //             displayMenuItems(item);
+            //         }else if(menu.category === "Lunch"){
+            //             displayMenuItems(item);
+            //         }else if(menu.category === "Beverage"){
+            //             displayMenuItems(item);
+            //         }else{
+            //             displayMenuItems(menu);
+            //         }
+            //     });
+            // });
+    </script>
+</body>
+</html>
